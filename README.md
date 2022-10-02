@@ -2,3 +2,8 @@
 ## 5 семестр
 ## Группа ИУ8-52
 ## Чумичкина Евгения
+
+
+## Лабораторная №1
+Создать движущееся изображение с помощью canvas 
+![me][https://github.com/zhenerenya/comp_graf_sem5/tree/main/sources]
