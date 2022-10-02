@@ -1,0 +1,53 @@
+<HTML>
+<BODY>
+<canvas id='dz1' width='601' height='501' style="border:1px solid">
+</canvas>
+
+<script>
+var canvas = document.getElementById('dz1');
+	var ctx = canvas.getContext('2d');
+
+		var pos_x=200;
+		var pos_y=200;
+		
+		var i_x=1;
+		var i_y=1;
+		
+		var up_right=0;
+		var down_right=1;
+		var up_left=0;
+		var down_left=0;
+		
+		
+		
+		ctx.fillStyle = "#0a3588";
+
+	setInterval( function () {
+			ctx.clearRect(0, 0, canvas.width, canvas.height); 
+				
+			
+			
+			if((pos_y<=0)&&up_right) {i_x=1; i_y=1; up_right=0; down_right=1; ctx.fillStyle = "#e999c8";}
+			if((pos_y<=0)&&up_left) {i_x=-1; i_y=1; up_left=0; down_left=1; ctx.fillStyle = "#76c900";}
+			
+			if((pos_y>=400)&&down_right) {i_x=1; i_y=-1; down_right=0; up_right=1; ctx.fillStyle = "#f1c232";}
+			if((pos_y>=400)&&down_left) {i_x=-1; i_y=-1; down_left=0; up_left=1; ctx.fillStyle = "#e69138";}
+			
+			
+			if((pos_x<=0)&&down_left) {i_x=1; i_y=1; down_left=0; down_right=1; ctx.fillStyle = "#e4e638";}
+			if((pos_x<=0)&&up_left) {i_x=1; i_y=-1; up_left=0; up_right=1; ctx.fillStyle = "#9138e6";}
+			
+			
+			if((pos_x>=500)&&down_right) {i_x=-1; i_y=1; down_right=0; down_left=1; ctx.fillStyle = "#e638e4";}
+			if((pos_x>=500)&&up_right) {i_x=-1; i_y=-1; up_left=1; up_right=0; ctx.fillStyle = "#990000";}
+			
+			
+			pos_y+=i_y;
+			pos_x+=i_x;
+			
+			ctx.fillRect(pos_x, pos_y, 100, 100);
+		}, 10);
+</script>
+
+</BODY>
+</HTML>
