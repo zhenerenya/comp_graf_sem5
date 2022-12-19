@@ -1,0 +1,64 @@
+<HTML>
+<head>
+</head>
+<BODY>
+<canvas id='dz2' width='601' height='501' style="border:1px solid">
+</canvas>
+<script>
+    var canvas = document.getElementById('dz2');
+    var ctx = canvas.getContext('2d');
+
+    var width = canvas.width;
+    var height = canvas.height;
+
+    var x = 0;
+    var y = 501;
+
+    var fig_height = 100;
+    var fig_width = 100;
+	
+	var pos_x=width;
+		var pos_y=height;
+		
+		var i_x=1;
+		var i_y=1;
+		
+		var up_right=0;
+		var down_right=1;
+		var up_left=0;
+		var down_left=0;
+		
+		
+		
+    function draw_kv(img) {
+        for (var i = 0; i < fig_width; ++i) {
+            for (var j = 0; j < fig_height; ++j) {
+               
+                var pre_it = (j * width + i) * 4;
+                img.data[pre_it + 2] = 255;
+                img.data[pre_it + 3] = 255;
+				
+				var post_it = (j * width + i - fig_width + 1) * 4;
+                img.data[post_it + 3] = 0; // transparency
+				
+				
+            }
+        }
+      }
+	  
+	
+	var img_data = ctx.getImageData(0, 0, width, height);
+    setInterval(function () {
+            draw_kv(img_data);
+           			
+			
+			pos_y-=1;
+			pos_x-=1;
+            ctx.putImageData(img_data, pos_x, pos_y);
+			console.log(data);
+        },
+        1);
+
+</script>
+</BODY>
+</HTML>

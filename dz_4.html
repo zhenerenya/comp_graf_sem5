@@ -1,0 +1,55 @@
+<HTML>
+    <head>
+    <style>
+       
+    </style>
+    </head>
+<BODY>
+<canvas id='lab04' width='700' height='400' style="border:1px solid">
+</canvas>
+<script>
+    var canvas = document.getElementById('lab04');
+    var ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = "#e69138";
+	var r = 100
+	var x = 300
+	var y = 200;
+    function draw(x, y, r) {
+
+        var tmp_x = x;
+        var tmp_y = y;
+        x = 0;
+        y = r;
+        var d = (1 - 2 * r);
+        var e = 0;
+        while (y >= 0) {
+            ctx.fillRect(tmp_x + x, tmp_y + y, 1, 1);
+            ctx.fillRect(tmp_x + x, tmp_y - y, 1, 1);
+            ctx.fillRect(tmp_x - x, tmp_y + y, 1, 1);
+            ctx.fillRect(tmp_x - x, tmp_y - y, 1, 1);
+
+            e = 2 * (d + y) - 1;
+            if ((d < 0) && (e <= 0)) {
+                x += 1;
+                d = d + (2 * x + 1);
+                continue
+            }
+            e = 2 * (d - x) - 1;
+            if ((d > 0) && (e > 0)) {
+                y -= 1;
+                d = d + (1 - 2 * y);
+                continue
+            }
+            x += 1;
+            d = d + (2 * (x - y));
+            y -= 1
+        }
+    }
+
+    
+    draw(x, y, r)
+
+</script>
+</BODY>
+</HTML>

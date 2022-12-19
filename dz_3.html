@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<HTML>
+<head>
+</head>
+<BODY>
+<canvas id='homework3' width="600px" height="600px"></canvas>
+<p id='demo'></p>
+<script>
+    let canvas = document.getElementById('homework3');
+    let ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = "#000000";
+    ctx.font = 'bold 30px sans-serif';
+
+    function put_numbers(x0, y0) {
+        var x = x0 - 300
+        var y = y0 - 300
+
+        ctx.fillText("0", 292+x, 90+y);
+        ctx.fillText("45", 60+x, 310+y);
+		ctx.fillText("30", 280+x, 530+y);
+        ctx.fillText("15", 510+x, 310+y);
+    }
+
+
+    function plot(x, y) {
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(x, y, 2, 2);
+    }
+
+    function draw_circle(x, y, R) {
+        var x0 = 0
+        var y0 = R
+        var delta = (2 - 2 * R)
+
+        while (y0 >= 0) {
+            plot(x + x0, y - y0);
+            plot(x - x0, y - y0);
+            plot(x - x0, y + y0);
+            plot(x + x0, y + y0);
+
+            if (delta < 0) {
+                x0++;
+                delta += 2 * x0 + 1;
+            }
+            if (delta > 0) {
+                y0--;
+                delta -= 2 * y0 + 1;
+            }
+
+        }
+    }
+
+    function draw_line(x0, y0, x_end, y_end, color) {
+        ctx.fillStyle = color;
+        var dx = x_end - x0;
+        var dy = y_end - y0;
+
+        var sign_x = Math.sign(dx);
+        var sign_y = Math.sign(dy);
+
+        var x = x0;
+        var y = y0;
+        var e = 0;
+
+        if (Math.abs(dx) > Math.abs(dy)) {
+            while (x !== x_end) {
+                e += 2 * dy;
+                if (Math.abs(e) >= Math.abs(dx)) {
+                    y += sign_y;
+                    e -= 2 * sign_x * sign_y * dx;
+                }
+                ctx.fillRect(x, y, 1, 1);
+                x += sign_x;
+            }
+        } else {
+            while (y !== y_end) {
+                e += 2 * dx;
+                if (Math.abs(e) >= Math.abs(dy)) {
+                    x += sign_x;
+                    e -= 2 * sign_x * sign_y * dy;
+                }
+                ctx.fillRect(x, y, 1, 1);
+                y += sign_y;
+            }
+        }
+    }
+
+    var x0 = 300, y0 = 300;
+    var R = 200; 
+
+    put_numbers (x0, y0)
+
+    draw_circle(x0, y0, R + 50);
+	
+	var date = new Date();
+	var now_sec = date.getSeconds();
+	 var seconds = -1;
+
+    setInterval(function () {
+       seconds+=1%60;
+        
+        var alpha = (seconds * 6 - 90) % 360;
+
+        var x_end = Math.abs(Math.trunc(x0 + R * Math.cos(alpha * Math.PI / 180)));
+        var y_end = Math.abs(Math.trunc(y0 + R * Math.sin(alpha * Math.PI / 180)));
+        draw_line(x0, y0, x_end, y_end, '#000000');
+
+        setInterval(function () {
+            draw_line(x0, y0, x_end, y_end, '#FFFFFF');
+        }, 1000);
+
+
+    }, 1000);
+</script>
+</BODY>
+</HTML>
